@@ -1,15 +1,4 @@
 {
-  "name": "ton-marketplace-twa",
-  "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
   "routes": [
     {
       "src": "/assets/(.*)",
@@ -21,9 +10,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "VITE_ADMIN_PASSWORD": "@admin-password",
-    "VITE_APP_NAME": "TON Marketplace"
-  }
+  ]
 }
