@@ -1,1 +1,56 @@
-import { useLocation, useNavigate } from 'react-router-dom';\nimport { Home, User, Package, Wallet, Settings } from 'lucide-react';\nimport { useAuth } from '../../hooks/useAuth';\n\nexport const BottomNavigation = () => {\n  const { user } = useAuth();\n  const location = useLocation();\n  const navigate = useNavigate();\n\n  if (!user) return null;\n\n  const buyerNavItems = [\n    { icon: Home, label: 'Marketplace', path: '/marketplace' },\n    { icon: User, label: 'Profile', path: '/profile' },\n  ];\n\n  const sellerNavItems = [\n    { icon: Package, label: 'Dashboard', path: '/seller/dashboard' },\n    { icon: Wallet, label: 'Wallet', path: '/seller/wallet' },\n  ];\n\n  const adminNavItems = [\n    { icon: Settings, label: 'Admin', path: '/admin/dashboard' },\n  ];\n\n  let navItems = [];\n  if (user.role === 'BUYER') navItems = buyerNavItems;\n  else if (user.role === 'SELLER') navItems = sellerNavItems;\n  else if (user.role === 'ADMIN') navItems = adminNavItems;\n\n  if (navItems.length === 0) return null;\n\n  return (\n    <div className=\"fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 safe-area-bottom\">\n      <div className=\"flex items-center justify-around max-w-md mx-auto\">\n        {navItems.map(({ icon: Icon, label, path }) => {\n          const isActive = location.pathname === path;\n          return (\n            <button\n              key={path}\n              onClick={() => navigate(path)}\n              className={`flex flex-col items-center space-y-1 px-3 py-2 rounded-lg transition-colors ${\n                isActive\n                  ? 'text-ton-blue bg-ton-blue/10'\n                  : 'text-gray-600 hover:text-gray-900'\n              }`}\n            >\n              <Icon className=\"w-5 h-5\" />\n              <span className=\"text-xs font-medium\">{label}</span>\n            </button>\n          );\n        })}\n      </div>\n    </div>\n  );\n};", "oldStr": "", "path": "c:\\Users\\mohadisa\\Downloads\\windsurf\\src\\components\\common\\BottomNavigation.tsx"}]
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Home, User, Package, Wallet, Settings } from 'lucide-react';
+import { useAuth } from '../../hooks/useAuth';
+
+export const BottomNavigation = () => {
+  const { user } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  if (!user) return null;
+
+  const buyerNavItems = [
+    { icon: Home, label: 'Marketplace', path: '/marketplace' },
+    { icon: User, label: 'Profile', path: '/profile' },
+  ];
+
+  const sellerNavItems = [
+    { icon: Package, label: 'Dashboard', path: '/seller/dashboard' },
+    { icon: Wallet, label: 'Wallet', path: '/seller/wallet' },
+  ];
+
+  const adminNavItems = [
+    { icon: Settings, label: 'Admin', path: '/admin/dashboard' },
+  ];
+
+  let navItems = [];
+  if (user.role === 'BUYER') navItems = buyerNavItems;
+  else if (user.role === 'SELLER') navItems = sellerNavItems;
+  else if (user.role === 'ADMIN') navItems = adminNavItems;
+
+  if (navItems.length === 0) return null;
+
+  return (
+    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 safe-area-bottom">
+      <div className="flex items-center justify-around max-w-md mx-auto">
+        {navItems.map(({ icon: Icon, label, path }) => {
+          const isActive = location.pathname === path;
+          return (
+            <button
+              key={path}
+              onClick={() => navigate(path)}
+              className={`flex flex-col items-center space-y-1 px-3 py-2 rounded-lg transition-colors ${
+                isActive
+                  ? 'text-ton-blue bg-ton-blue/10'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              <Icon className="w-5 h-5" />
+              <span className="text-xs font-medium">{label}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
